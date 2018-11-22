@@ -1,6 +1,6 @@
-package nodelab.com.labelUndirectedGeneTrees;
+package nodelab.com.labelUndirectedGeneTrees.logic;
 
-import nodelab.com.labelUndirectedGeneTrees.reconciliations.EucalyptReconciliationService;
+import nodelab.com.labelUndirectedGeneTrees.reconciliations.EvolutionaryReconciliationService;
 import nodelab.com.labelUndirectedGeneTrees.reconciliations.RenconciliationServiceInterface;
 import nodelab.com.labelUndirectedGeneTrees.structures.UnrootedGTreeInternalNodeInterface;
 import nodelab.com.labelUndirectedGeneTrees.structures.UnrootedTreeAbstract;
@@ -8,7 +8,8 @@ import nodelab.com.labelUndirectedGeneTrees.structures.UnrootedTreeNexusTreeMapF
 
 public class LabelUndirectedGeneTreeNexusFormat extends LabelUndirectedGeneTreeAbstract {
 	
-	private RenconciliationServiceInterface reconciliation=new EucalyptReconciliationService();
+	private RenconciliationServiceInterface reconciliation=new EvolutionaryReconciliationService();
+	//private DummyReconciliation dummyReconciliation=new DummyReconciliation();
 
 	@Override
 	protected UnrootedTreeAbstract getRootedG(String unrootedG) {
@@ -18,8 +19,8 @@ public class LabelUndirectedGeneTreeNexusFormat extends LabelUndirectedGeneTreeA
 	}
 
 	@Override
-	protected float getCurrentWeight(String S, String rootedG, String mapping) {
-		return reconciliation.getWeight(S, rootedG, mapping);
+	protected float getCurrentWeight(String S, String rootedG, String mapping,int level, int leftOrRight, int parentLevel, int leftOrRIghtParent) {
+		return reconciliation.getWeight(S, rootedG, mapping,level,leftOrRight,parentLevel,leftOrRIghtParent);
 	}
 
 	@Override

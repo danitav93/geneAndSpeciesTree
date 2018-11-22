@@ -45,6 +45,18 @@ public class Errors {
 
 
 	public static final String EUCALYPT_ERROR = "Eucalypt didn't generate any output";
+
+
+	public static final String READING_EUCALYPT_OUTPUT_ERROR = "Error while reading eucalypt";
+
+
+	public static final String UPDATING_RECONCILIATION_ERROR_NOT_MAPPING_FOUND = "Error while updating the reconciliation: NOT MAPPING FOUND";
+
+
+	public static final String ROOTED_TREE_S_NOT_INITIALIZED_ERROR = "Rooted tree S has not been initialized";
+
+
+	public static final String STAR_NOT_FOUND_ERROR = "STAR NOT FOUND EXCEPTION";
 	
 	
 }

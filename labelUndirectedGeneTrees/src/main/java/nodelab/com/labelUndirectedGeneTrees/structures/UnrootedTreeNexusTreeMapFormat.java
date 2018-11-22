@@ -1,10 +1,10 @@
 package nodelab.com.labelUndirectedGeneTrees.structures;
 
-import java.util.HashSet;
-
-import nodelab.com.labelUndirectedGeneTrees.constants.Errors;
+import java.util.ArrayList;
 
 import nodelab.com.labelUndirectedGeneTrees.constants.ApplicationConstants;
+import nodelab.com.labelUndirectedGeneTrees.constants.Errors;
+import nodelab.com.labelUndirectedGeneTrees.utility.Methods;
 public class UnrootedTreeNexusTreeMapFormat extends UnrootedTreeAbstract {
 
 
@@ -12,7 +12,7 @@ public class UnrootedTreeNexusTreeMapFormat extends UnrootedTreeAbstract {
 
 	public UnrootedTreeNexusTreeMapFormat(String unrootedG) {
 
-		internalNodes = new HashSet<>();
+		internalNodes = new ArrayList<>();
 		LeafG firstLeaf = new LeafG();
 		try {
 			firstLeaf.setLabel(unrootedG.substring(unrootedG.lastIndexOf(",")+1,unrootedG.lastIndexOf(")")));
@@ -30,6 +30,7 @@ public class UnrootedTreeNexusTreeMapFormat extends UnrootedTreeAbstract {
 		if (!iterator.hasNext()) {
 			throw new RuntimeException(Errors.UNROOTED_TREE_GENERATOR_ERROR_WRONG_FORMAT_NO_INTERNAL_NODE_FOUND);
 		}
+		
 		currentInternalNode=iterator.next();
 	};
 
@@ -40,6 +41,8 @@ public class UnrootedTreeNexusTreeMapFormat extends UnrootedTreeAbstract {
 		} 
 		
 		UnrootedGTreeInternalNode internalNode = new UnrootedGTreeInternalNode();
+		
+		internalNodes.add(internalNode);
 
 		switch (relationship) {
 		case ApplicationConstants.FATHER:
@@ -62,7 +65,7 @@ public class UnrootedTreeNexusTreeMapFormat extends UnrootedTreeAbstract {
 		//left child
 		String left;
 		try {
-			left= unrootedG.substring(1,findMiddleIndex(unrootedG));
+			left= unrootedG.substring(1,Methods.findMiddleIndex(unrootedG));
 		} catch (IndexOutOfBoundsException e) {
 			throw new RuntimeException(Errors.UNROOTED_TREE_GENERATOR_ERROR_WRONG_FORMAT_NOT_MIDDLE_FOUND+": "+unrootedG);
 		}
@@ -83,7 +86,7 @@ public class UnrootedTreeNexusTreeMapFormat extends UnrootedTreeAbstract {
 		//right child
 		String right;
 		try {
-			right= unrootedG.substring(findMiddleIndex(unrootedG)+1,unrootedG.length()-1);
+			right= unrootedG.substring(Methods.findMiddleIndex(unrootedG)+1,unrootedG.length()-1);
 		} catch (IndexOutOfBoundsException e) {
 			throw new RuntimeException(Errors.UNROOTED_TREE_GENERATOR_ERROR_WRONG_FORMAT_NOT_MIDDLE_FOUND+": "+unrootedG);
 		}
@@ -101,46 +104,11 @@ public class UnrootedTreeNexusTreeMapFormat extends UnrootedTreeAbstract {
 			internalNode.setRight(rightLeaf);
 		}
 
-		internalNodes.add(internalNode);
+		
 
 	}
 
-	private int findMiddleIndex(String unrootedG) {
-		
-		String minusOutsideBracket=unrootedG.substring(unrootedG.indexOf("(")+1, unrootedG.lastIndexOf(")"));
-
-		int i=0;
-		int sum=0;
-		boolean end=false;
-		
-		//se il sinistro è una foglia la metà sarà la prima virgola
-		if (minusOutsideBracket.charAt(0)!='(') {
-			try {
-				return unrootedG.indexOf(",");
-			} catch (IndexOutOfBoundsException e) {
-				throw new RuntimeException(Errors.UNROOTED_TREE_GENERATOR_ERROR_WRONG_FORMAT_NOT_COMMA_FOUND+": "+unrootedG);
-			}
-		}
-		
-		while (!end) {
-			if (minusOutsideBracket.charAt(i)=='(') {
-				sum++;
-			}
-			if (minusOutsideBracket.charAt(i)==')') {
-				sum--;
-				if (sum==0) {
-					end=true;
-				} else if (sum<0) {
-					throw new RuntimeException(Errors.UNROOTED_TREE_GENERATOR_ERROR_WRONG_FORMAT_BRACKETS+": "+unrootedG);
-				}
-			}
-			i++;
-			if (i>=minusOutsideBracket.length()) {
-				throw new RuntimeException(Errors.UNROOTED_TREE_GENERATOR_ERROR_WRONG_FORMAT_BRACKETS+": "+unrootedG);
-			}
-		}
-		return i+1; //il più 1 è per il fatto che ho rimosso le parentesi esterne all'inizio
-	}
+	
 
 	@Override
 	public String getNextFormattedRootedTree() {
@@ -264,6 +232,29 @@ public class UnrootedTreeNexusTreeMapFormat extends UnrootedTreeAbstract {
 		
 		return "("+leftString+","+rightString+")";
 		
+	}
+
+	@Override
+	public int getLeftOrRight() {
+		if (!currentInternalNode.isParentLabeled()) {
+			return ApplicationConstants.FATHER;
+		}
+		if (!currentInternalNode.isLeftLabeled()) {
+			return ApplicationConstants.LEFT;
+		}
+		if (!currentInternalNode.isRightLabeled()) {
+			return ApplicationConstants.RIGHT;
+		}
+		return 0;
+	}
+
+	@Override
+	public int getLeftOrRightParent() {
+		if (currentInternalNode.isLeftChild()) {
+			return ApplicationConstants.LEFT;
+
+		}
+		return ApplicationConstants.RIGHT;
 	}
 
 }

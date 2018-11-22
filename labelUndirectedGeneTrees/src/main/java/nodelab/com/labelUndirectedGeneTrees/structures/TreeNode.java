@@ -102,4 +102,33 @@ public class TreeNode implements TreeNodeInterface<TreeNode> {
 		return null;
 	}
 
+	
+	@Override
+	public boolean comparable(TreeNodeInterface<TreeNode> node) {
+		return isAscendant(node) || isDescendant(node);
+	}
+
+	@Override
+	public boolean isAscendant(TreeNodeInterface<TreeNode> node) {
+		if (node.getParent()==null) {
+			return false;
+		}
+		if (this==node.getParent()) {
+			return true;
+		}
+		return isAscendant(node.getParent());
+	}
+
+	@Override
+	public boolean isDescendant(TreeNodeInterface<TreeNode> node) {
+		
+		if (getParent()==null) {
+			return false;
+		}
+		if (node==getParent()) {
+			return true;
+		}
+		return isDescendant(getParent());
+	}
+
 }

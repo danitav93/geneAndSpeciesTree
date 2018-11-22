@@ -12,5 +12,8 @@ public interface TreeNodeInterface<T> {
 	boolean isRoot();
 	boolean isLeftChild();
 	boolean isRightChild();
+	boolean comparable(TreeNodeInterface<T> node);
+	boolean isAscendant(TreeNodeInterface<T> node);
+	boolean isDescendant(TreeNodeInterface<T> node);
 	String print();
 }

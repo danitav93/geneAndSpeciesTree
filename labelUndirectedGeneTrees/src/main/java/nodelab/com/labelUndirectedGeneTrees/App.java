@@ -2,6 +2,7 @@ package nodelab.com.labelUndirectedGeneTrees;
 
 import nodelab.com.labelUndirectedGeneTrees.input.InputInterface;
 import nodelab.com.labelUndirectedGeneTrees.input.SimpleInput;
+import nodelab.com.labelUndirectedGeneTrees.logic.LabelUndirectedGeneTreeNexusFormat;
 
 public class App 
 {

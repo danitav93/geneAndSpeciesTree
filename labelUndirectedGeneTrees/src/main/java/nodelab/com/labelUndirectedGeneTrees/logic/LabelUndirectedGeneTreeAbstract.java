@@ -1,4 +1,4 @@
-package nodelab.com.labelUndirectedGeneTrees;
+package nodelab.com.labelUndirectedGeneTrees.logic;
 
 import nodelab.com.labelUndirectedGeneTrees.structures.UnrootedTreeAbstract;
 
@@ -27,7 +27,7 @@ public abstract class LabelUndirectedGeneTreeAbstract{
 		
 		while (!unrootedTreeG.isLabeled()) {
 			
-			unrootedTreeG.setCurrentWeight(getCurrentWeight(S,rootedG,mapping));
+			unrootedTreeG.setCurrentWeight(getCurrentWeight(S,rootedG,mapping,unrootedTreeG.getCurrentLevel(),unrootedTreeG.getLeftOrRight(),unrootedTreeG.getParentLevel(),unrootedTreeG.getLeftOrRightParent()));
 			
 			rootedG = unrootedTreeG.getNextFormattedRootedTree();
 			
@@ -41,7 +41,7 @@ public abstract class LabelUndirectedGeneTreeAbstract{
 	
 	protected abstract UnrootedTreeAbstract getRootedG(String unrootedG);
 	
-	protected abstract float getCurrentWeight(String S, String rootedG, String mapping);
+	protected abstract float getCurrentWeight(String S, String rootedG, String mapping, int level, int leftOrRight, int parentLevel, int leftOrRIghtParent);
 	
 	protected abstract void outputLabeledGraph(UnrootedTreeAbstract G);
 

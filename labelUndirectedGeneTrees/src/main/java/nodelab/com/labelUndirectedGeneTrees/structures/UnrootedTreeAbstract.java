@@ -1,7 +1,7 @@
 package nodelab.com.labelUndirectedGeneTrees.structures;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Set;
 
 import nodelab.com.labelUndirectedGeneTrees.constants.Errors;
 
@@ -15,7 +15,7 @@ public abstract class UnrootedTreeAbstract {
 	
 	protected boolean isLabeled=false;
 	
-	protected Set<UnrootedGTreeInternalNodeInterface> internalNodes;
+	protected ArrayList<UnrootedGTreeInternalNodeInterface> internalNodes;
 	
 	protected Iterator<UnrootedGTreeInternalNodeInterface> iterator;
 	
@@ -37,8 +37,20 @@ public abstract class UnrootedTreeAbstract {
 		return isLabeled;
 	};
 	
-	public Set<UnrootedGTreeInternalNodeInterface> getInternalNodes() {
+	public ArrayList<UnrootedGTreeInternalNodeInterface> getInternalNodes() {
 		return internalNodes;
 	}
+
+	public int getCurrentLevel() {
+		return internalNodes.indexOf(currentInternalNode);
+	}
+
+	public abstract int getLeftOrRight();
+
+	public int getParentLevel() {
+		return internalNodes.indexOf((UnrootedGTreeInternalNodeInterface)currentInternalNode.getParent());
+	}
+
+	public abstract int getLeftOrRightParent();
 	
 }

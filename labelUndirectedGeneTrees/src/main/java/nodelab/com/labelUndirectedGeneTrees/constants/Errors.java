@@ -57,6 +57,9 @@ public class Errors {
 
 
 	public static final String STAR_NOT_FOUND_ERROR = "STAR NOT FOUND EXCEPTION";
+
+
+	public static final String TREE_NODE_DISTANCE_ERROR = "Cannot compute distance on non-comparable or non ascendant nodes";
 	
 	
 }

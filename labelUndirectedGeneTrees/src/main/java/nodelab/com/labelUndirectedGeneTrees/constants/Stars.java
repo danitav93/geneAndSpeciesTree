@@ -13,6 +13,11 @@ public class Stars {
 
 	
 	
+	public final static int AR=-1;
+	public final static int BR=-2;
+	public final static int DR=-4;
+	public final static int ER=-5;
+	public final static int HR=-8;
 	
 	
 	

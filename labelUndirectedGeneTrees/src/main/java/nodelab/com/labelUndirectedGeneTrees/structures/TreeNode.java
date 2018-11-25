@@ -131,4 +131,24 @@ public class TreeNode implements TreeNodeInterface<TreeNode> {
 		return isDescendant(getParent());
 	}
 
+	//non efficient
+	public int getDistance(TreeNode ascendant) {
+	
+		
+		if (ascendant==this) {
+			return 0;
+		}
+		
+		if (ascendant.left==this || ascendant.right==this) {
+			return 1;
+		}
+		
+		if (parent==null) {
+			throw new RuntimeException(Errors.TREE_NODE_DISTANCE_ERROR);
+		}
+		
+		return  parent.getDistance(ascendant);
+		
+	}
+
 }

@@ -41,11 +41,19 @@ public class EvolutionaryReconciliationService implements RenconciliationService
 
 	public class ReconciliationBuilding implements ReconciliationInterface {
 
+		
+
 		private String GAMMA_R;
 		private String GAMMA_V;
 		private String GAMMA_V_1;
 		private String GAMMA_V_2;
 		private String GAMMA_V_3;
+		
+		private String Label_R;
+		private String Label_V;
+		private String Label_V_1;
+		private String Label_V_2;
+		private String Label_V_3;
 
 		private int level=0;
 		private int leftOrRight;
@@ -184,10 +192,8 @@ public class EvolutionaryReconciliationService implements RenconciliationService
 
 		private void starDetection() {
 
-			currentStar= new GStar(GAMMA_R,GAMMA_V_1,GAMMA_V,GAMMA_V_2,GAMMA_V_3,getCurrentStarMapping(),getCurrentMappingWeight());
-			
-			
-			
+			currentStar= new GStar(this);
+
 		}
 		
 		
@@ -200,7 +206,7 @@ public class EvolutionaryReconciliationService implements RenconciliationService
 			}
 		}
 
-		private float getCurrentMappingWeight() {
+		public float getCurrentMappingWeight() {
 			int index=0;
 			if (level!=0) {
 				index= (leftOrRightParent==ApplicationConstants.LEFT)? parentLevel*2-1 : parentLevel*2;
@@ -208,7 +214,7 @@ public class EvolutionaryReconciliationService implements RenconciliationService
 			return weights.get(index);
 		}
 		
-		private String[] getCurrentStarMapping() {
+		public String[] getCurrentStarMapping() {
 			int mappingIndex=0;
 			if (level!=0) {
 				mappingIndex= (leftOrRightParent==ApplicationConstants.LEFT)? parentLevel*2-1 : parentLevel*2;
@@ -228,12 +234,17 @@ public class EvolutionaryReconciliationService implements RenconciliationService
 
 		private void updateInitialStarMappings() {
 
+			Label_R=findLabel(geneLabeling);
+			Label_V_1=findLabelV1();
+			Label_V=findLabelV();
+			Label_V_2=findLabelV2();
+			Label_V_3=findLabelV3();
 
-			GAMMA_R = findMapping(findLabel(geneLabeling));
-			GAMMA_V_1 = findMapping(findLabelV1());
-			GAMMA_V = findMapping(findLabelV());
-			GAMMA_V_2 = findMapping(findLabelV2());
-			GAMMA_V_3 = findMapping(findLabelV3());
+			GAMMA_R = findMapping(Label_R);
+			GAMMA_V_1 = findMapping(Label_V_1);
+			GAMMA_V = findMapping(Label_V);
+			GAMMA_V_2 = findMapping(Label_V_2);
+			GAMMA_V_3 = findMapping(Label_V_3);
 			/*System.out.println("!P0"+"@"+GAMMA_R+"   "+findLabelV1()+"@"+GAMMA_V_1+"   "+findLabelV()+"@"+GAMMA_V+"   "+findLabelV2()+"@"+GAMMA_V_2+"   "+findLabelV3()+"@"+GAMMA_V_3);
 			System.out.println("dasds");*/
 		}
@@ -281,7 +292,45 @@ public class EvolutionaryReconciliationService implements RenconciliationService
 		}
 
 
+		public String getLabel_R() {
+			return Label_R;
+		}
 
+		public void setLabel_R(String label_R) {
+			Label_R = label_R;
+		}
+
+		public String getLabel_V() {
+			return Label_V;
+		}
+
+		public void setLabel_V(String label_V) {
+			Label_V = label_V;
+		}
+
+		public String getLabel_V_1() {
+			return Label_V_1;
+		}
+
+		public void setLabel_V_1(String label_V_1) {
+			Label_V_1 = label_V_1;
+		}
+
+		public String getLabel_V_2() {
+			return Label_V_2;
+		}
+
+		public void setLabel_V_2(String label_V_2) {
+			Label_V_2 = label_V_2;
+		}
+
+		public String getLabel_V_3() {
+			return Label_V_3;
+		}
+
+		public void setLabel_V_3(String label_V_3) {
+			Label_V_3 = label_V_3;
+		}
 
 		public ArrayList<String[]> getMappings() {
 			return mappings;
@@ -298,6 +347,8 @@ public class EvolutionaryReconciliationService implements RenconciliationService
 		public float getWeight() {
 			return weight;
 		}
+
+	
 
 
 	}
